@@ -11,7 +11,8 @@ export default function Home() {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const API = 'http://34.57.16.144:4000/todos';
+const API = '/api/todos';
+
 
   // Fetch todos on page load
   useEffect(() => {

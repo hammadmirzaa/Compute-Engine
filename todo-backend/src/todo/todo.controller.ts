@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 
-@Controller('todos')
+@Controller('api/todos')
 export class TodoController {
   private todos: string[] = [];
 
