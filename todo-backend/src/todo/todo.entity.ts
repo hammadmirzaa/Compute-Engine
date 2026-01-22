@@ -1,19 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
-@Entity()
 export class Todo {
-  @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ length: 500 })
   title: string;
-
-  @Column({ default: false })
   completed: boolean;
-
-  @CreateDateColumn()
   createdAt: Date;
-
-  @UpdateDateColumn()
   updatedAt: Date;
+
+  constructor(title: string) {
+    this.id = Date.now(); // Simple ID generation using timestamp
+    this.title = title;
+    this.completed = false;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
 }

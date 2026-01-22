@@ -2,14 +2,5 @@ runtime: custom
 env: flex
 service: backend
 
-# Cloud SQL configuration
-beta_settings:
-  cloud_sql_instances: fabled-archive-485009-r8:us-central1:my-sql
-
-# Environment variables for database connection
 env_variables:
   NODE_ENV: production
-  INSTANCE_CONNECTION_NAME: fabled-archive-485009-r8:us-central1:my-sql
-  DB_USER: root
-  DB_PASS: '' # Empty password
-  DB_NAME: todos

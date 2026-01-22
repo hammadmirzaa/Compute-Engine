@@ -1,32 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Todo } from './todo.entity';
 
 @Injectable()
 export class TodoService {
-  constructor(
-    @InjectRepository(Todo)
-    private todoRepository: Repository<Todo>,
-  ) {}
+  private todos: Todo[] = [];
 
   async findAll(): Promise<Todo[]> {
-    return this.todoRepository.find({
-      order: { createdAt: 'DESC' },
-    });
+    return [...this.todos].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
   async create(title: string): Promise<Todo> {
-    const todo = this.todoRepository.create({ title, completed: false });
-    return this.todoRepository.save(todo);
+    const todo = new Todo(title);
+    this.todos.push(todo);
+    return todo;
   }
 
   async update(id: number, completed: boolean): Promise<Todo | null> {
-    await this.todoRepository.update(id, { completed });
-    return this.todoRepository.findOne({ where: { id } });
+    const todo = this.todos.find(t => t.id === id);
+    if (todo) {
+      todo.completed = completed;
+      todo.updatedAt = new Date();
+      return todo;
+    }
+    return null;
   }
 
   async delete(id: number): Promise<void> {
-    await this.todoRepository.delete(id);
+    this.todos = this.todos.filter(t => t.id !== id);
   }
 }

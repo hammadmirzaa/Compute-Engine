@@ -11,8 +11,7 @@ export default function Home() {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
 
-const API = '/api/todos';
-
+const API = process.env.NEXT_PUBLIC_API_URL + '/api/todos';
 
   // Fetch todos on page load
   useEffect(() => {
